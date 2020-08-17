@@ -71,6 +71,7 @@ class StudentController{
 
         return res.json({id, name, email, age, weight, height})
     }
+
 }
 
 export default new StudentController()
