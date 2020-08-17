@@ -14,6 +14,9 @@ export default async (req, res, next)=>{
     const [, token] = authHeader.split(' ')
 
     try {
+        /**
+         * dar para trabalhar apenas com o jwt.verify, mas ai teria que usar funcao callback 
+         */ 
         const decoded = await promisify(jwt.verify)(token, authConfig.secret)//para retornar somente o id, o iat , e data de expiração no exp
         
         req.userId = decoded.id // pegar o id objeto decoded e guardar numa variavel que posso ser usada quando ele já estiver autenticado
