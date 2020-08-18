@@ -13,6 +13,7 @@ class Plan extends Model{
             }, 
             {sequelize},
         )
+        return this
     }
 }
 

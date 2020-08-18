@@ -61,7 +61,7 @@ class PlanController{
 
         const {title, duration, price} = req.body
 
-        if(title != plan.title){
+        if(title && title != plan.title){
             const planExists = await Plan.findOne({where: {title}})
 
             if(planExists){
