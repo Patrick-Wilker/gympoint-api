@@ -3,6 +3,9 @@ import * as Yup from 'yup'
 import HelpOrder from '../models/HelpOrder'
 import Student from '../models/Student'
 
+import AnswerMail from '../jobs/AnswerMail'
+import Queue from '../../lib/Queue'
+
 class AnswerController{
     async update(req, res){
 
@@ -46,6 +49,10 @@ class AnswerController{
         })
 
         await questionExists.save()
+
+        await Queue.add(AnswerMail.key,{
+            questionExists,
+        })
 
         return res.json({id, student_id, question, answer , answer_at})
     }
