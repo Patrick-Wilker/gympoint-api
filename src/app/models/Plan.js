@@ -1,5 +1,3 @@
-const { Model } = require("sequelize")
-
 import Sequelize, {Model} from 'sequelize'
 
 
