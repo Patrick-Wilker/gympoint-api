@@ -1,12 +1,12 @@
+import 'dotenv/config'
+
 import express from 'express'
-
 import 'express-async-errors' // para o sentry conseguir ver os erros que ocorre no async await . Deve ser importado antes das rotas
-
-import routes from './routes'
-
 import * as Sentry from '@sentry/node'
 import sentryConfig from './config/sentry'
 import Youch from 'youch' // deixar mais bonitos os erros para os devs
+
+import routes from './routes'
 
 import './database/index'
 
@@ -36,9 +36,14 @@ class App{
 
     exceptionHandler(){
         this.server.use(async (err, req, res, nex)=>{
-            const errors = await new Youch(err, req).toJSON()
 
-            return res.status(500).json(errors)
+            if(process.env.NODE_ENV == 'development'){
+                const errors = await new Youch(err, req).toJSON()
+
+                return res.status(500).json(errors)
+            }
+
+            return res.status(500).json({error: 'Internal server error'})
         })
     }
 
